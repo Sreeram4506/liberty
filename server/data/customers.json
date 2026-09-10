@@ -1,0 +1,93 @@
+[
+  {
+    "id": "c1",
+    "first": "Mike",
+    "last": "Sullivan",
+    "email": "mike.sullivan@example.com",
+    "pass": "demo1234",
+    "role": "customer",
+    "status": "active",
+    "joined": "2025-11-03",
+    "orders": 4
+  },
+  {
+    "id": "c2",
+    "first": "Dana",
+    "last": "Perez",
+    "email": "dana.perez@example.com",
+    "pass": "demo1234",
+    "role": "customer",
+    "status": "active",
+    "joined": "2026-01-18",
+    "orders": 1
+  },
+  {
+    "id": "c3",
+    "first": "Tom",
+    "last": "Chen",
+    "email": "tom.chen@example.com",
+    "pass": "demo1234",
+    "role": "customer",
+    "status": "disabled",
+    "joined": "2026-03-29",
+    "orders": 0
+  },
+  {
+    "id": "owner",
+    "first": "Shop",
+    "last": "Owner",
+    "email": "owner@los2a.com",
+    "pass": "liberty",
+    "role": "owner",
+    "status": "active",
+    "joined": "2025-01-01",
+    "orders": 0
+  },
+  {
+    "id": "admin",
+    "first": "Shop",
+    "last": "Admin",
+    "email": "admin@los2a.com",
+    "pass": "liberty",
+    "role": "owner",
+    "status": "active",
+    "joined": "2025-01-01",
+    "orders": 0
+  },
+  {
+    "id": "mgr-norwood",
+    "first": "Ray",
+    "last": "Doyle",
+    "email": "norwood@los2a.com",
+    "pass": "liberty",
+    "role": "admin",
+    "storeId": "store-norwood",
+    "status": "active",
+    "joined": "2025-02-14",
+    "orders": 0
+  },
+  {
+    "id": "mgr-brockton",
+    "first": "Alice",
+    "last": "Nguyen",
+    "email": "brockton@los2a.com",
+    "pass": "liberty",
+    "role": "admin",
+    "storeId": "store-brockton",
+    "status": "active",
+    "joined": "2025-06-02",
+    "orders": 0
+  },
+  {
+    "id": "mgr-worcester",
+    "first": "Carl",
+    "last": "Reyes",
+    "email": "worcester@los2a.com",
+    "pass": "liberty",
+    "role": "admin",
+    "storeId": "store-worcester",
+    "status": "active",
+    "joined": "2026-04-11",
+    "orders": 0
+  }
+]

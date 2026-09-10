@@ -1,0 +1,108 @@
+[
+  {
+    "id": "holosun-507c",
+    "name": "Holosun HS507C X2",
+    "cat": "Red Dots",
+    "priceN": 309.99,
+    "storeStock": {
+      "store-norwood": 3,
+      "store-brockton": 2,
+      "store-worcester": 1
+    },
+    "slot": "p-507c",
+    "placeholder": "Holosun 507C photo"
+  },
+  {
+    "id": "romeo5",
+    "name": "Sig Sauer Romeo5",
+    "cat": "Red Dots",
+    "priceN": 139.99,
+    "storeStock": {
+      "store-norwood": 5,
+      "store-brockton": 4,
+      "store-worcester": 2
+    },
+    "slot": "p-romeo5",
+    "placeholder": "Romeo5 photo"
+  },
+  {
+    "id": "tlr1-hl",
+    "name": "Streamlight TLR-1 HL",
+    "cat": "Weapon Lights",
+    "priceN": 164.99,
+    "storeStock": {
+      "store-norwood": 4,
+      "store-brockton": 3,
+      "store-worcester": 1
+    },
+    "slot": "p-tlr1",
+    "placeholder": "TLR-1 photo"
+  },
+  {
+    "id": "x300u",
+    "name": "Surefire X300 Ultra",
+    "cat": "Weapon Lights",
+    "priceN": 329.99,
+    "storeStock": {
+      "store-norwood": 2,
+      "store-brockton": 1,
+      "store-worcester": 0
+    },
+    "slot": "p-x300",
+    "placeholder": "X300U photo"
+  },
+  {
+    "id": "moe-sl",
+    "name": "Magpul MOE SL Stock",
+    "cat": "AR Accessories",
+    "priceN": 59.99,
+    "storeStock": {
+      "store-norwood": 6,
+      "store-brockton": 5,
+      "store-worcester": 3
+    },
+    "slot": "p-moe",
+    "placeholder": "MOE SL photo"
+  },
+  {
+    "id": "raptor-lt",
+    "name": "Radian Raptor-LT Charging Handle",
+    "cat": "AR Accessories",
+    "priceN": 54.99,
+    "storeStock": {
+      "store-norwood": 4,
+      "store-brockton": 3,
+      "store-worcester": 2
+    },
+    "slot": "p-raptor",
+    "placeholder": "Raptor-LT photo"
+  },
+  {
+    "id": "bcm-upper",
+    "name": "BCM 16\" Mid-Length Upper",
+    "cat": "Upper Receivers",
+    "priceN": 649.99,
+    "storeStock": {
+      "store-norwood": 1,
+      "store-brockton": 1,
+      "store-worcester": 0
+    },
+    "slot": "p-bcm",
+    "placeholder": "BCM upper photo"
+  },
+  {
+    "id": "glock19-used",
+    "name": "Glock 19 Gen 4",
+    "cat": "Used Guns",
+    "priceN": 429.99,
+    "storeStock": {
+      "store-norwood": 1,
+      "store-brockton": 0,
+      "store-worcester": 0
+    },
+    "used": true,
+    "condition": "Very good",
+    "slot": "p-g19",
+    "placeholder": "Glock 19 photo"
+  }
+]

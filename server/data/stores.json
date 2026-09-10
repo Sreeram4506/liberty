@@ -1,0 +1,23 @@
+[
+  {
+    "id": "store-norwood",
+    "name": "Norwood Flagship",
+    "address": "100 Access Rd, Suite 215, Norwood MA 02062",
+    "phone": "(508) 492-5955",
+    "hours": "Mon-Fri 10am-6pm, Sat 10am-7pm, Sun 10am-3:30pm"
+  },
+  {
+    "id": "store-brockton",
+    "name": "Brockton Branch",
+    "address": "45 Liberty Ave, Brockton MA 02301",
+    "phone": "(508) 555-0142",
+    "hours": "Mon-Fri 10am-6pm, Sat 10am-5pm, Sun Closed"
+  },
+  {
+    "id": "store-worcester",
+    "name": "Worcester Outpost",
+    "address": "220 Grafton St, Worcester MA 01604",
+    "phone": "(508) 555-0198",
+    "hours": "Tue-Sat 10am-6pm, Sun-Mon Closed"
+  }
+]
