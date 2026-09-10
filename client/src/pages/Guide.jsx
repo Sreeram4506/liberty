@@ -38,13 +38,13 @@ export default function Guide() {
         </section>
       </main>
 
-      <section style={{ background: 'var(--color-accent)', color: 'var(--color-bg)' }}>
+      <section style={{ background: 'var(--color-accent)', color: 'var(--color-on-accent)' }}>
         <div className="wrap" style={{ paddingTop: 'clamp(44px,6vw,72px)', paddingBottom: 'clamp(44px,6vw,72px)' }}>
           <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(30px,4.5vw,52px)', lineHeight: 1.06, letterSpacing: '-0.015em', margin: '0 0 0 -0.055em' }}>Still unsure? That's why we're here.</h2>
           <p style={{ fontSize: '16px', lineHeight: 1.65, margin: '18px 0 0', maxWidth: '58ch' }}>Stop by the shop, email, DM us on IG, or call. We'll find the right firearm for <strong>you</strong>.</p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '26px' }}>
-            <a href="tel:+15084925955" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-bg)', borderColor: 'var(--color-bg)', minHeight: '48px' }}>(508) 492-5955</a>
-            <Link to="/contact" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-bg)', borderColor: 'var(--color-bg)', minHeight: '48px' }}>Contact us</Link>
+            <a href="tel:+15084925955" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-on-accent)', borderColor: 'var(--color-on-accent)', minHeight: '48px' }}>(508) 492-5955</a>
+            <Link to="/contact" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-on-accent)', borderColor: 'var(--color-on-accent)', minHeight: '48px' }}>Contact us</Link>
           </div>
         </div>
       </section>

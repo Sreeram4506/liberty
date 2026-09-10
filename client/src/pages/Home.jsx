@@ -74,35 +74,47 @@ export default function Home() {
 
   return (
     <>
-      <main className="wrap">
-        <section style={{ padding: 'clamp(36px,6vw,72px) 0 clamp(32px,5vw,64px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: 'clamp(28px,4vw,72px)', alignItems: 'center' }}>
-          <div>
-            <p className="fade-up" style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 16px' }}>Norwood, Massachusetts &middot; Est. local</p>
-            <h1 className="fade-up" style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(38px,6vw,72px)', lineHeight: 1.04, letterSpacing: '-0.02em', margin: '0 0 0 -0.058em', animationDelay: '.08s' }}>
-              <span style={{ display: 'block' }}>Your local gun shop.</span><span style={{ display: 'block', color: 'var(--color-accent)' }}>Straight answers.</span><span style={{ display: 'block' }}>Fair prices.</span>
-            </h1>
-            <p className="fade-up" style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '52ch', margin: '24px 0 0', animationDelay: '.16s' }}>Optics, lights, AR parts and used guns in stock. Custom orders on anything we don't carry. FFL transfers, gunsmithing, and Massachusetts LTC classes taught right here in the shop.</p>
-            <div className="fade-up" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '28px', animationDelay: '.24s' }}>
-              <Link to="/shop" className="btn btn-primary" style={{ textDecoration: 'none', minHeight: '48px' }}>Browse the shop</Link>
-              <a href="#ltc" className="btn btn-secondary" style={{ textDecoration: 'none', minHeight: '48px' }}>LTC classes</a>
-            </div>
-          </div>
-          <div className="fade-up" style={{ animationDelay: '.15s' }}>
-            <div className="glass-card" style={{ aspectRatio: '5/4', overflow: 'hidden' }}>
-              <img src="/images/shop_counter.png" alt="Liberty Ordnance Supply Shop Counter" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', padding: '12px 4px 0', fontSize: '12px', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>
-              <span>The counter, Norwood MA</span><span style={{ color: 'var(--color-accent)' }}>Open 7 days</span>
-            </div>
-          </div>
-        </section>
+      <section style={{ position: 'relative', width: '100%', minHeight: 'clamp(560px,88vh,880px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflow: 'hidden' }}>
+        <img src="/images/shop_counter.png" alt="Liberty Ordnance Supply shop counter" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: 0, zIndex: 0 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.62) 42%, rgba(0,0,0,0.32) 100%)', zIndex: 1 }} />
 
-        <section 
-          ref={videoContainerRef} 
-          style={{ 
-            width: '100%', 
-            height: '300vh', 
-            margin: '0 0 clamp(32px,5vw,64px) 0',
+        <div className="wrap fade-up" style={{ position: 'relative', zIndex: 2, paddingTop: 'clamp(56px,9vw,104px)', paddingBottom: 'clamp(32px,5vw,56px)' }}>
+          <p style={{ fontSize: '13px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: 700, margin: '0 0 16px' }}>Norwood, Massachusetts &middot; Est. local</p>
+          <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: 'clamp(38px,6.5vw,76px)', lineHeight: 1.02, letterSpacing: '-0.01em', margin: '0 0 0 -0.03em', color: 'var(--color-on-accent)' }}>
+            <span style={{ display: 'block' }}>Your local gun shop.</span><span style={{ display: 'block', color: 'var(--color-accent)' }}>Straight answers.</span><span style={{ display: 'block' }}>Fair prices.</span>
+          </h1>
+          <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '52ch', margin: '24px 0 0', color: 'rgba(255,255,255,0.72)' }}>Optics, lights, AR parts and used guns in stock. Custom orders on anything we don't carry. FFL transfers, gunsmithing, and Massachusetts LTC classes taught right here in the shop.</p>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '28px' }}>
+            <Link to="/shop" className="btn btn-primary" style={{ textDecoration: 'none', minHeight: '48px' }}>Browse the shop</Link>
+            <a href="#ltc" className="btn btn-ghost" style={{ textDecoration: 'none', minHeight: '48px', color: 'var(--color-on-accent)', borderColor: 'rgba(255,255,255,0.4)' }}>LTC classes</a>
+          </div>
+        </div>
+
+        <div style={{ position: 'relative', zIndex: 2, borderTop: '1px solid rgba(255,255,255,0.18)', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>
+          <div className="wrap" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))' }}>
+            <a href="tel:+15084925955" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', padding: '18px clamp(0px,2vw,16px)', color: 'var(--color-on-accent)', borderRight: '1px solid rgba(255,255,255,0.18)' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" style={{ color: 'var(--color-accent)', flexShrink: 0 }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Call the shop</span>
+            </a>
+            <a href="https://maps.google.com/?q=100+Access+Rd+Suite+215+Norwood+MA+02062" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', padding: '18px clamp(0px,2vw,16px)', color: 'var(--color-on-accent)', borderRight: '1px solid rgba(255,255,255,0.18)' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" style={{ color: 'var(--color-accent)', flexShrink: 0 }}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Directions</span>
+            </a>
+            <a href="#visit" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', padding: '18px clamp(0px,2vw,16px)', color: 'var(--color-on-accent)' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" style={{ color: 'var(--color-accent)', flexShrink: 0 }}><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Hours today: {todayHours}</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <main className="wrap">
+        <section
+          ref={videoContainerRef}
+          style={{
+            width: '100%',
+            height: '300vh',
+            margin: 'clamp(32px,5vw,64px) 0',
             position: 'relative'
           }}
         >
@@ -111,42 +123,28 @@ export default function Home() {
             top: '10vh',
             width: '100%',
             height: '80vh',
-            borderRadius: '16px', 
-            overflow: 'hidden', 
+            borderRadius: '4px',
+            overflow: 'hidden',
             background: '#000',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+            border: '1px solid var(--color-divider)',
+            boxShadow: 'var(--shadow-lg)'
           }}>
-            <video 
+            <video
               ref={videoRef}
-              src="/erasio_video.mp4" 
-              muted 
+              src="/erasio_video.mp4"
+              muted
               playsInline
               preload="auto"
-              style={{ 
-                width: '100%', 
-                height: '100%', 
+              style={{
+                width: '100%',
+                height: '100%',
                 objectFit: 'cover'
-              }} 
+              }}
             />
           </div>
         </section>
 
-        <div className="tile-grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))' }}>
-          <a href="tel:+15084925955" className="tile tile-link" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', padding: '16px', color: 'var(--color-text)' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" style={{ color: 'var(--color-accent)', flexShrink: 0 }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            <span style={{ fontSize: '14px', fontWeight: 600 }}>Call the shop</span>
-          </a>
-          <a href="https://maps.google.com/?q=100+Access+Rd+Suite+215+Norwood+MA+02062" className="tile tile-link" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', padding: '16px', color: 'var(--color-text)' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" style={{ color: 'var(--color-accent)', flexShrink: 0 }}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            <span style={{ fontSize: '14px', fontWeight: 600 }}>Directions</span>
-          </a>
-          <a href="#visit" className="tile tile-link" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', padding: '16px', color: 'var(--color-text)' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" style={{ color: 'var(--color-accent)', flexShrink: 0 }}><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <span style={{ fontSize: '14px', fontWeight: 600 }}>Hours today: <span>{todayHours}</span></span>
-          </a>
-        </div>
-
-        <div style={{ borderTop: '1px solid var(--color-divider)', borderBottom: '1px solid var(--color-divider)', marginTop: 'clamp(32px,5vw,56px)', overflow: 'hidden', padding: '16px 0' }} aria-hidden="true">
+        <div style={{ borderTop: '1px solid var(--color-divider)', borderBottom: '1px solid var(--color-divider)', overflow: 'hidden', padding: '16px 0' }} aria-hidden="true">
           <div style={{ display: 'flex', gap: 0, width: 'max-content', animation: 'ticker 28s linear infinite', whiteSpace: 'nowrap' }}>
             <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '15px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>FFL Transfers <span style={{ color: 'var(--color-accent)' }}>&#9632;</span> LTC Classes <span style={{ color: 'var(--color-accent)' }}>&#9632;</span> We Buy Collections <span style={{ color: 'var(--color-accent)' }}>&#9632;</span> Gunsmithing <span style={{ color: 'var(--color-accent)' }}>&#9632;</span> Custom Orders <span style={{ color: 'var(--color-accent)' }}>&#9632;</span>&nbsp;</span>
             <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '15px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>FFL Transfers <span style={{ color: 'var(--color-accent)' }}>&#9632;</span> LTC Classes <span style={{ color: 'var(--color-accent)' }}>&#9632;</span> We Buy Collections <span style={{ color: 'var(--color-accent)' }}>&#9632;</span> Gunsmithing <span style={{ color: 'var(--color-accent)' }}>&#9632;</span> Custom Orders <span style={{ color: 'var(--color-accent)' }}>&#9632;</span>&nbsp;</span>
@@ -272,12 +270,12 @@ export default function Home() {
         </section>
       </main>
 
-      <section style={{ background: 'var(--color-accent)', color: 'var(--color-bg)' }}>
+      <section style={{ background: 'var(--color-accent)', color: 'var(--color-on-accent)' }}>
         <div className="wrap" style={{ paddingTop: 'clamp(48px,7vw,84px)', paddingBottom: 'clamp(48px,7vw,84px)' }}>
           <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(32px,5vw,56px)', lineHeight: 1.06, letterSpacing: '-0.015em', margin: '0 0 0 -0.058em' }}><span style={{ display: 'block' }}>We buy collections.</span><span style={{ display: 'block' }}>Single guns or entire estates.</span></h2>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '28px' }}>
-            <Link to="/sell-your-guns" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-bg)', borderColor: 'var(--color-bg)', minHeight: '48px' }}>How it works</Link>
-            <a href="tel:+15084925955" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-bg)', borderColor: 'var(--color-bg)', minHeight: '48px' }}><span style={{ whiteSpace: 'nowrap' }}>Get an offer</span>&nbsp;&mdash;&nbsp;<span style={{ whiteSpace: 'nowrap' }}>(508) 492-5955</span></a>
+            <Link to="/sell-your-guns" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-on-accent)', borderColor: 'var(--color-on-accent)', minHeight: '48px' }}>How it works</Link>
+            <a href="tel:+15084925955" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-on-accent)', borderColor: 'var(--color-on-accent)', minHeight: '48px' }}><span style={{ whiteSpace: 'nowrap' }}>Get an offer</span>&nbsp;&mdash;&nbsp;<span style={{ whiteSpace: 'nowrap' }}>(508) 492-5955</span></a>
           </div>
         </div>
       </section>

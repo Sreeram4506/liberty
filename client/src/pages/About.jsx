@@ -31,12 +31,12 @@ export default function About() {
           </div>
         </section>
       </main>
-      <section style={{ background: 'var(--color-accent)', color: 'var(--color-bg)' }}>
+      <section style={{ background: 'var(--color-accent)', color: 'var(--color-on-accent)' }}>
         <div className="wrap" style={{ paddingTop: 'clamp(44px,6vw,72px)', paddingBottom: 'clamp(44px,6vw,72px)' }}>
           <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(30px,4.5vw,52px)', lineHeight: 1.06, letterSpacing: '-0.015em', margin: '0 0 0 -0.055em' }}>Come say hi. The coffee's always on.</h2>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '26px' }}>
-            <Link to="/contact" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-bg)', borderColor: 'var(--color-bg)', minHeight: '48px' }}>Contact us</Link>
-            <Link to="/shop" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-bg)', borderColor: 'var(--color-bg)', minHeight: '48px' }}>Browse the shop</Link>
+            <Link to="/contact" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-on-accent)', borderColor: 'var(--color-on-accent)', minHeight: '48px' }}>Contact us</Link>
+            <Link to="/shop" className="btn btn-ghost" style={{ textDecoration: 'none', color: 'var(--color-on-accent)', borderColor: 'var(--color-on-accent)', minHeight: '48px' }}>Browse the shop</Link>
           </div>
         </div>
       </section>

@@ -30,7 +30,7 @@ export default function Deals() {
               <p style={{ fontSize: '14.5px', lineHeight: 1.6, margin: '10px 0 0' }}>{d.desc}</p>
             </div>
           ))}
-          <Link to="/shop" className="tile-link tile" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '16px', padding: '24px 22px', background: 'var(--color-accent)', color: 'var(--color-bg)' }}>
+          <Link to="/shop" className="tile-link tile" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '16px', padding: '24px 22px', background: 'var(--color-accent)', color: 'var(--color-on-accent)' }}>
             <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '20px', lineHeight: 1.2 }}>Ready to stack a deal?</span>
             <span style={{ fontSize: '14px', fontWeight: 600 }}>Browse the shop &rarr;</span>
           </Link>
