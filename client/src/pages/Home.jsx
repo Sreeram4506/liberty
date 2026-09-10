@@ -41,9 +41,25 @@ export default function Home() {
 
     // Ensure the video is loaded enough to know its duration before we start scrubbing
     const video = videoRef.current;
+    let isUnlocked = false;
+
+    const unlockVideo = () => {
+      if (video && !isUnlocked) {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            video.pause();
+            isUnlocked = true;
+          }).catch(() => {});
+        }
+        window.removeEventListener('touchstart', unlockVideo);
+      }
+    };
+
     if (video) {
       video.pause(); // We control playback via scroll
       video.addEventListener('loadedmetadata', handleScroll);
+      window.addEventListener('touchstart', unlockVideo, { passive: true });
     }
     
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -51,6 +67,7 @@ export default function Home() {
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchstart', unlockVideo);
       if (video) video.removeEventListener('loadedmetadata', handleScroll);
     };
   }, []);
