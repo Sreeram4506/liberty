@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PageHero from '../components/PageHero';
 
 export default function Deals() {
   const deals = [
@@ -13,14 +14,16 @@ export default function Deals() {
   ];
 
   return (
-    <main className="wrap">
-      <section style={{ padding: 'clamp(36px,6vw,64px) 0 clamp(28px,4vw,48px)', borderBottom: '2px solid var(--color-divider)' }}>
-        <p style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 16px' }}>Forever deals &middot; No limits, no gimmicks</p>
-        <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(34px,5.5vw,64px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 0 -0.055em' }}>Ongoing deals at LOS.<br /><span style={{ color: 'var(--color-accent)' }}>They never expire.</span></h1>
-        <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '56ch', margin: '22px 0 0' }}>Buy as much as you want, as often as you want &mdash; anytime. No weekly restrictions, just consistent value for everyone. Deals are valid at the time of purchase.</p>
-        <p style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', margin: '22px 0 0', padding: '12px 16px', border: '2px solid var(--color-accent)', fontSize: '14px', fontWeight: 600, color: 'var(--color-accent-700)' }}>Show this page at checkout to activate any deal.</p>
-      </section>
-
+    <>
+      <PageHero
+        image="/images/weapon_light.png"
+        eyebrow="Forever deals · No limits, no gimmicks"
+        title={<>Ongoing deals at LOS.<br /><span style={{ color: 'var(--color-accent)' }}>They never expire.</span></>}
+        subtitle="Buy as much as you want, as often as you want — anytime. No weekly restrictions, just consistent value for everyone. Deals are valid at the time of purchase."
+      >
+        <p style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', margin: 0, padding: '12px 16px', border: '2px solid var(--color-accent)', fontSize: '14px', fontWeight: 600, color: 'var(--color-on-accent)' }}>Show this page at checkout to activate any deal.</p>
+      </PageHero>
+      <main className="wrap">
       <section style={{ padding: 'clamp(36px,5vw,56px) 0' }}>
         <div className="tile-grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
           {deals.map(d => (
@@ -36,6 +39,7 @@ export default function Deals() {
           </Link>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

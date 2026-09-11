@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PageHero from '../components/PageHero';
 
 export default function Services() {
   return (
-    <main className="wrap">
-      <section style={{ padding: 'clamp(32px,5vw,56px) 0' }}>
-        <p style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 12px' }}>Done in-house, in Norwood</p>
-        <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(32px,5vw,56px)', letterSpacing: '-0.02em', margin: '0 0 0 -0.058em' }}>Services</h1>
-        <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '58ch', margin: '20px 0 0' }}>Everything below is done by us, at the shop. Walk in during open hours or call ahead &mdash; most jobs are same-day or next-day.</p>
-      </section>
-
+    <>
+      <PageHero
+        image="/images/shop_counter.png"
+        eyebrow="Done in-house, in Norwood"
+        title="Services"
+        subtitle="Everything below is done by us, at the shop. Walk in during open hours or call ahead — most jobs are same-day or next-day."
+      />
+      <main className="wrap">
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(48px,120px) 1fr', gap: '16px clamp(20px,4vw,64px)', borderTop: '2px solid var(--color-divider)', padding: 'clamp(24px,4vw,40px) 0' }}>
           <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '15px', margin: 0 }}>01</p>
@@ -39,6 +41,7 @@ export default function Services() {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

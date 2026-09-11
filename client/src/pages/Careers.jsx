@@ -1,15 +1,18 @@
 import React from 'react';
+import PageHero from '../components/PageHero';
 
 export default function Careers() {
   return (
-    <main className="wrap">
-      <section style={{ padding: 'clamp(36px,6vw,64px) 0', borderBottom: '2px solid var(--color-divider)' }}>
-        <p style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 16px' }}>LOS careers</p>
-        <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(34px,5.5vw,64px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 0 -0.055em' }}>We're growing.<br /><span style={{ color: 'var(--color-accent)' }}>Grow with us.</span></h1>
-        <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '56ch', margin: '22px 0 0' }}>Apply by submitting a <strong>resume</strong> and <strong>cover letter</strong> to sales@los2a.com with the <strong>job title in the subject line</strong>. Applications are reviewed on a rolling basis.</p>
-        <a href="mailto:sales@los2a.com?subject=Application" className="btn btn-primary" style={{ textDecoration: 'none', marginTop: '26px', minHeight: '48px' }}>Apply by email</a>
-      </section>
-
+    <>
+      <PageHero
+        image="/images/shop_counter.png"
+        eyebrow="LOS careers"
+        title={<>We&rsquo;re growing.<br /><span style={{ color: 'var(--color-accent)' }}>Grow with us.</span></>}
+        subtitle={<>Apply by submitting a <strong>resume</strong> and <strong>cover letter</strong> to sales@los2a.com with the <strong>job title in the subject line</strong>. Applications are reviewed on a rolling basis.</>}
+      >
+        <a href="mailto:sales@los2a.com?subject=Application" className="btn btn-primary" style={{ textDecoration: 'none', minHeight: '48px' }}>Apply by email</a>
+      </PageHero>
+      <main className="wrap">
       <section style={{ padding: 'clamp(36px,5vw,56px) 0', display: 'flex', flexDirection: 'column', gap: 'clamp(24px,3vw,36px)' }}>
         <article style={{ border: '2px solid var(--color-divider)' }}>
           <div style={{ padding: '22px 24px', borderBottom: '2px solid var(--color-divider)', display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', alignItems: 'baseline' }}>
@@ -61,6 +64,7 @@ export default function Careers() {
           </div>
         </article>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

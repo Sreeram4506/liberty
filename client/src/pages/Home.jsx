@@ -158,38 +158,44 @@ export default function Home() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(180px,1fr))', gap: '20px' }}>
             <Link to="/shop?cat=Red%20Dots" className="tile-link glass-card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden' }}>
                 <img src="/images/red_dot.png" alt="Red Dots" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <span className="quick-view-badge">Shop now</span>
               </div>
               <span style={{ padding: '16px', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px' }}>Red Dots</span>
             </Link>
             <Link to="/shop?cat=Weapon%20Lights" className="tile-link glass-card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden' }}>
                 <img src="/images/weapon_light.png" alt="Weapon Lights" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <span className="quick-view-badge">Shop now</span>
               </div>
               <span style={{ padding: '16px', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px' }}>Weapon Lights</span>
             </Link>
             <Link to="/shop?cat=AR%20Accessories" className="tile-link glass-card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden' }}>
                 <img src="/images/ar_accessories.png" alt="AR Accessories" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <span className="quick-view-badge">Shop now</span>
               </div>
               <span style={{ padding: '16px', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px' }}>AR Accessories</span>
             </Link>
             <Link to="/shop?cat=Used%20Guns" className="tile-link glass-card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden' }}>
                 <img src="/images/used_guns.png" alt="Used Guns" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <span className="quick-view-badge">Shop now</span>
               </div>
               <span style={{ padding: '16px', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px' }}>Used Guns</span>
             </Link>
             <Link to="/shop?cat=Upper%20Receivers" className="tile-link glass-card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden' }}>
                 <img src="/images/ar_accessories.png" alt="Upper Receivers" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <span className="quick-view-badge">Shop now</span>
               </div>
               <span style={{ padding: '16px', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px' }}>Upper Receivers</span>
             </Link>
             <Link to="/shop" className="tile-link glass-card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden' }}>
                 <img src="/images/shop_counter.png" alt="Merch" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <span className="quick-view-badge">Shop now</span>
               </div>
               <span style={{ padding: '16px', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '16px' }}>Merch</span>
             </Link>

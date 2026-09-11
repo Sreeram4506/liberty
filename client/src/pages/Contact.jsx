@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
+import PageHero from '../components/PageHero';
 
 export default function Contact() {
   const { stores } = useAppContext();
@@ -20,14 +21,15 @@ export default function Contact() {
   };
 
   return (
-    <main className="wrap">
-      <section style={{ padding: 'clamp(36px,6vw,64px) 0 clamp(28px,4vw,44px)' }}>
-        <p style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 16px' }}>Contact us</p>
-        <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(34px,5.5vw,64px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 0 -0.055em' }}>Send us a message.</h1>
-        <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '54ch', margin: '20px 0 0' }}>Question about stock, a transfer, an LTC class, or selling a gun? Write us &mdash; we usually reply the same day.</p>
-      </section>
-
-      <section style={{ padding: '0 0 clamp(44px,6vw,72px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 'clamp(28px,4vw,64px)', alignItems: 'start' }}>
+    <>
+      <PageHero
+        image="/images/shop_counter.png"
+        eyebrow="Contact us"
+        title="Send us a message."
+        subtitle="Question about stock, a transfer, an LTC class, or selling a gun? Write us — we usually reply the same day."
+      />
+      <main className="wrap">
+      <section style={{ padding: 'clamp(32px,5vw,56px) 0 clamp(44px,6vw,72px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 'clamp(28px,4vw,64px)', alignItems: 'start' }}>
         {!submitted ? (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px', border: '2px solid var(--color-divider)', padding: 'clamp(20px,3vw,32px)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: '18px' }}>
@@ -77,6 +79,7 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

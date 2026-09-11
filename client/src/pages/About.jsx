@@ -1,20 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PageHero from '../components/PageHero';
 
 export default function About() {
   return (
     <>
+      <PageHero
+        image="/images/shop_counter.png"
+        eyebrow="About us"
+        title={<>The leading gun shop in Massachusetts that actually <span style={{ color: 'var(--color-accent)' }}>cares about you</span>.</>}
+        subtitle="Young, relatable professionals who know our stuff. Our mission: get individuals the best tools possible to defend themselves and their loved ones — whether it's your first firearm or your fiftieth."
+      />
       <main className="wrap">
-        <section style={{ padding: 'clamp(36px,6vw,64px) 0', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 'clamp(28px,4vw,64px)', alignItems: 'center', borderBottom: '2px solid var(--color-divider)' }}>
-          <div>
-            <p style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 16px' }}>About us</p>
-            <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(34px,5.5vw,64px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 0 -0.055em' }}>The leading gun shop in Massachusetts that actually <span style={{ color: 'var(--color-accent)' }}>cares about you</span>.</h1>
-            <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '54ch', margin: '22px 0 0' }}>Young, relatable professionals who know our stuff. Our mission: get individuals the best tools possible to defend themselves and their loved ones &mdash; whether it's your first firearm or your fiftieth.</p>
-          </div>
-          <div className="glass-card" style={{ aspectRatio: '5/4', overflow: 'hidden' }}>
-            <img src="/images/shop_counter.png" alt="Liberty Ordnance Supply Team & Counter" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-        </section>
         <section style={{ padding: 'clamp(36px,5vw,60px) 0' }}>
           <div className="tile-grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
             {[

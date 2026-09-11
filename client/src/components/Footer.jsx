@@ -1,14 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
+  const [joined, setJoined] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email.trim() || !consent) return;
+    setJoined(true);
+    setEmail('');
+  };
+
   return (
     <footer className="site-footer">
+      <div className="wrap" style={{ padding: 'clamp(40px,6vw,64px) 0', borderBottom: '1px solid var(--color-divider)', display: 'flex', flexWrap: 'wrap', gap: '24px 48px', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: 'clamp(26px,4vw,40px)', lineHeight: 1.02, margin: 0 }}>Keep up<br />with the shop</h2>
+          <p style={{ fontSize: '14px', margin: '10px 0 0', maxWidth: '38ch' }}>Restock alerts, forever deals, and LTC class dates &mdash; no spam.</p>
+        </div>
+        {joined ? (
+          <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: '15px', textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-accent)', margin: 0 }}>You're on the list &mdash; thanks!</p>
+        ) : (
+          <form onSubmit={handleSubscribe} style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '260px' }}>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email address"
+                className="input"
+                style={{ flex: '1 1 200px', minHeight: '46px' }}
+              />
+              <button type="submit" className="btn btn-primary" style={{ minHeight: '46px' }}>Sign up</button>
+            </div>
+            <label style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '12.5px', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
+              <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required style={{ marginTop: '2px' }} />
+              I consent to receive emails from Liberty Ordnance Supply.
+            </label>
+          </form>
+        )}
+      </div>
       <div className="footer-grid">
         <div>
-          <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '16px', textTransform: 'uppercase', letterSpacing: '0.02em', margin: 0 }}>
-            Liberty Ordnance<span style={{ color: 'var(--color-accent)' }}> Supply</span>
-          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="/images/logo-mark.png" alt="" style={{ width: '30px', height: '30px', flexShrink: 0 }} />
+            <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '16px', textTransform: 'uppercase', letterSpacing: '0.02em', margin: 0 }}>
+              Liberty Ordnance<span style={{ color: 'var(--color-accent)' }}> Supply</span>
+            </p>
+          </div>
           <p style={{ fontSize: '14px', lineHeight: 1.6, color: 'color-mix(in srgb, var(--color-text) 70%, transparent)', margin: '12px 0 0', maxWidth: '32ch' }}>
             Family-run gun shop in Norwood, MA. Straight answers, fair prices, and coffee that's always on.
           </p>

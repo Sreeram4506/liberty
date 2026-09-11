@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PageHero from '../components/PageHero';
 
 export default function Guide() {
   return (
     <>
+      <PageHero
+        image="/images/red_dot.png"
+        eyebrow="Beginner's guide"
+        title={<>Picking your <span style={{ color: 'var(--color-accent)' }}>first handgun</span>.</>}
+        subtitle="Everything a first-time Massachusetts buyer needs to know — the law, the sizes, the calibers, and the gear that actually matters."
+      />
       <main className="wrap">
-        <section style={{ padding: 'clamp(36px,6vw,64px) 0', borderBottom: '2px solid var(--color-divider)' }}>
-          <p style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 16px' }}>Beginner's guide</p>
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(34px,5.5vw,64px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: '0 0 0 -0.055em' }}>Picking your <span style={{ color: 'var(--color-accent)' }}>first handgun</span>.</h1>
-          <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '56ch', margin: '22px 0 0' }}>Everything a first-time Massachusetts buyer needs to know &mdash; the law, the sizes, the calibers, and the gear that actually matters.</p>
-        </section>
-
         <section style={{ padding: 'clamp(36px,5vw,56px) 0', borderBottom: '2px solid var(--color-divider)' }}>
           <p style={{ fontSize: '13px', fontFamily: 'var(--font-heading)', fontWeight: 800, color: 'var(--color-accent)', margin: 0 }}>01</p>
           <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(24px,3vw,36px)', letterSpacing: '-0.015em', margin: '12px 0 0' }}>Massachusetts law &mdash; what you need to know</h2>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
+import PageHero from '../components/PageHero';
 
 export default function Shop() {
   const { inventory, addToCart, fmt } = useAppContext();
@@ -33,13 +34,14 @@ export default function Shop() {
 
   return (
     <>
+      <PageHero
+        image="/images/shop_counter.png"
+        eyebrow="In-store inventory · call to confirm stock"
+        title="Shop"
+        height="clamp(260px,30vw,340px)"
+      />
       <main className="wrap">
-        <section style={{ padding: 'clamp(32px,5vw,56px) 0 20px' }}>
-          <p style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 12px' }}>In-store inventory &middot; call to confirm stock</p>
-          <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: 'clamp(32px,5vw,56px)', letterSpacing: '-0.02em', margin: '0 0 0 -0.058em' }}>Shop</h1>
-        </section>
-
-        <div id="cat-filters" style={{ display: 'flex', gap: '8px', overflowX: 'auto', padding: '4px 0 20px', WebkitOverflowScrolling: 'touch' }}>
+        <div id="cat-filters" style={{ display: 'flex', gap: '8px', overflowX: 'auto', padding: '24px 0 20px', WebkitOverflowScrolling: 'touch' }}>
           {['All', ...CATS].map(c => (
             <button 
               key={c} 
@@ -80,8 +82,9 @@ export default function Shop() {
 
               return (
                 <Link key={p.id} to={`/product/${encodeURIComponent(p.id)}`} className="product-card tile-link glass-card" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', color: 'inherit' }}>
-                  <div style={{ aspectRatio: '4/3', overflow: 'hidden', borderBottom: '1px solid var(--color-divider)' }}>
+                  <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', borderBottom: '1px solid var(--color-divider)' }}>
                     <img src={getImage(p.cat)} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <span className="quick-view-badge">Quick view</span>
                   </div>
                   <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
                     <span style={{ fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: 600 }}>{p.cat}</span>

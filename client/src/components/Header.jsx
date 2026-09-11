@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
+import ProductsMegaMenu from './ProductsMegaMenu';
 
 export default function Header() {
   const { isStaff, cartCount } = useAppContext();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [shopMenuOpen, setShopMenuOpen] = useState(false);
+  const closeTimer = useRef(null);
+
+  const openShopMenu = () => {
+    clearTimeout(closeTimer.current);
+    setShopMenuOpen(true);
+  };
+  const scheduleCloseShopMenu = () => {
+    closeTimer.current = setTimeout(() => setShopMenuOpen(false), 150);
+  };
 
   return (
     <header className="site-header">
@@ -20,19 +31,22 @@ export default function Header() {
         </div>
       </div>
       <div className="header-row">
+        <nav aria-label="Main" className="main-nav">
+          <div className="nav-item-mega" onMouseEnter={openShopMenu} onMouseLeave={scheduleCloseShopMenu}>
+            <NavLink to="/shop" className={({ isActive }) => (isActive || shopMenuOpen ? 'nav-mega-active' : undefined)}>Shop</NavLink>
+          </div>
+          <NavLink to="/services">Services</NavLink>
+          <NavLink to="/deals">Deals</NavLink>
+          <NavLink to="/guide">Guide</NavLink>
+          <NavLink to="/sell-your-guns">Sell to Us</NavLink>
+          <NavLink to="/about">About</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
+        </nav>
         <Link to="/" className="brand">
-          Liberty Ordnance<span style={{ color: 'var(--color-accent)' }}> Supply</span>
+          <img src="/images/logo-mark.png" alt="" className="brand-mark" />
+          <span>Liberty Ordnance Supply</span>
         </Link>
         <div className="header-actions">
-          <nav aria-label="Main" className="main-nav">
-            <NavLink to="/shop">Shop</NavLink>
-            <NavLink to="/services">Services</NavLink>
-            <NavLink to="/deals">Deals</NavLink>
-            <NavLink to="/guide">Beginner's Guide</NavLink>
-            <NavLink to="/sell-your-guns">Sell to Us</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/contact">Contact</NavLink>
-          </nav>
           <Link to={isStaff ? '/admin' : '/login'} aria-label="Account" className="icon-btn">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square">
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -63,6 +77,13 @@ export default function Header() {
           </button>
         </div>
       </div>
+      {shopMenuOpen && (
+        <ProductsMegaMenu
+          onNavigate={() => setShopMenuOpen(false)}
+          onMouseEnter={openShopMenu}
+          onMouseLeave={scheduleCloseShopMenu}
+        />
+      )}
       <div className={`mobile-drawer-overlay ${menuOpen ? 'open' : ''}`} onClick={() => setMenuOpen(false)}></div>
       <div className={`mobile-drawer ${menuOpen ? 'open' : ''}`}>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
