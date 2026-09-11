@@ -75,15 +75,16 @@ export default function Home() {
   return (
     <>
       <section style={{ position: 'relative', width: '100%', minHeight: 'clamp(560px,88vh,880px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflow: 'hidden' }}>
-        <img src="/images/shop_counter.png" alt="Liberty Ordnance Supply shop counter" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: 0, zIndex: 0 }} />
+        <video src="/liberty_interface.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: 0, zIndex: 0 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.62) 42%, rgba(0,0,0,0.32) 100%)', zIndex: 1 }} />
 
         <div className="wrap fade-up" style={{ position: 'relative', zIndex: 2, paddingTop: 'clamp(56px,9vw,104px)', paddingBottom: 'clamp(32px,5vw,56px)' }}>
-          <p style={{ fontSize: '13px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: 700, margin: '0 0 16px' }}>Norwood, Massachusetts &middot; Est. local</p>
+          <p style={{ fontSize: '13px', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: 700, margin: '0 0 16px' }}>Liberty Ordnance Supply</p>
           <h1 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: 'clamp(38px,6.5vw,76px)', lineHeight: 1.02, letterSpacing: '-0.01em', margin: '0 0 0 -0.03em', color: 'var(--color-on-accent)' }}>
-            <span style={{ display: 'block' }}>Your local gun shop.</span><span style={{ display: 'block', color: 'var(--color-accent)' }}>Straight answers.</span><span style={{ display: 'block' }}>Fair prices.</span>
+            <span style={{ display: 'block' }}>Buy. Sell. Service.</span>
+            <span style={{ display: 'block', color: 'var(--color-accent)' }}>Firearms & Ammunition.</span>
           </h1>
-          <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '52ch', margin: '24px 0 0', color: 'rgba(255,255,255,0.72)' }}>Optics, lights, AR parts and used guns in stock. Custom orders on anything we don't carry. FFL transfers, gunsmithing, and Massachusetts LTC classes taught right here in the shop.</p>
+          <p style={{ fontSize: 'clamp(15px,2vw,17px)', lineHeight: 1.65, maxWidth: '52ch', margin: '24px 0 0', color: 'rgba(255,255,255,0.72)' }}>Your trusted destination to buy premium firearms and ammo, sell your collections, and get expert gunsmithing service.</p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '28px' }}>
             <Link to="/shop" className="btn btn-primary" style={{ textDecoration: 'none', minHeight: '48px' }}>Browse the shop</Link>
             <a href="#ltc" className="btn btn-ghost" style={{ textDecoration: 'none', minHeight: '48px', color: 'var(--color-on-accent)', borderColor: 'rgba(255,255,255,0.4)' }}>LTC classes</a>
