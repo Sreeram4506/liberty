@@ -1,13 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import ProductsMegaMenu from './ProductsMegaMenu';
+import { API_BASE } from '../lib/api';
 
 export default function Header() {
   const { isStaff, cartCount } = useAppContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const [shopMenuOpen, setShopMenuOpen] = useState(false);
+  const [liveCategories, setLiveCategories] = useState([]);
   const closeTimer = useRef(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${API_BASE}/api/lightspeed/products`)
+      .then(res => { if (!res.ok) throw new Error('bad response'); return res.json(); })
+      .then(data => { if (!cancelled) setLiveCategories(data.categories || []); })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
 
   const openShopMenu = () => {
     clearTimeout(closeTimer.current);
@@ -79,6 +90,7 @@ export default function Header() {
       </div>
       {shopMenuOpen && (
         <ProductsMegaMenu
+          categories={liveCategories}
           onNavigate={() => setShopMenuOpen(false)}
           onMouseEnter={openShopMenu}
           onMouseLeave={scheduleCloseShopMenu}

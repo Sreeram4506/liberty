@@ -145,7 +145,7 @@ export default function Home() {
 
   return (
     <>
-      <audio ref={audioRef} src="/audio.mp3" loop />
+      <audio ref={audioRef} src="/starly_Kavkaz.mp3" loop preload="auto" />
       <section style={{ position: 'relative', width: '100%', minHeight: 'clamp(560px,88vh,880px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflow: 'hidden' }}>
         <video src="/liberty_interface.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: 0, zIndex: 0 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.62) 42%, rgba(0,0,0,0.32) 100%)', zIndex: 1 }} />
@@ -207,7 +207,7 @@ export default function Home() {
               src="/erasio_video.mp4"
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               style={{
                 width: '100%',
                 height: '100%',

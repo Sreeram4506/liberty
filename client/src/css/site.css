@@ -9,6 +9,9 @@ html { scroll-behavior: smooth; }
 
 .fade-up { animation: fadeUp .6s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
+@keyframes skeletonPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+.skeleton { animation: skeletonPulse 1.4s ease-in-out infinite; }
+
 /* — image placeholder slots — */
 .img-slot {
   width: 100%; height: 100%; min-height: 100%;
@@ -20,7 +23,7 @@ html { scroll-behavior: smooth; }
 }
 
 /* — layout helpers — */
-.wrap { max-width: 100%; margin: 0 auto; padding: 0 clamp(24px, 4vw, 64px); }
+.wrap { max-width: 1400px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 64px); }
 .rule { height: 1px; border: 0; margin: 0; background: var(--color-divider); }
 
 /* — header — */
@@ -38,12 +41,12 @@ html { scroll-behavior: smooth; }
 .topbar a { color: var(--color-on-accent); opacity: 0.85; }
 .topbar a:hover { opacity: 1; }
 .topbar-inner {
-  max-width: 100%; margin: 0 auto; padding: 8px clamp(24px,4vw,64px);
+  max-width: 1400px; margin: 0 auto; padding: 8px clamp(24px,4vw,64px);
   display: flex; justify-content: space-between; gap: 16px;
 }
 .header-row {
   position: relative;
-  max-width: 100%; margin: 0 auto; padding: 12px clamp(24px,4vw,64px);
+  max-width: 1400px; margin: 0 auto; padding: 12px clamp(24px,4vw,64px);
   display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px;
 }
 .brand {
@@ -148,11 +151,11 @@ html { scroll-behavior: smooth; }
 /* — footer — */
 .site-footer { border-top: 3px solid var(--color-accent); background: var(--color-surface); width: 100%; }
 .footer-grid {
-  max-width: 100%; margin: 0 auto; padding: 64px clamp(24px,4vw,64px);
+  max-width: 1400px; margin: 0 auto; padding: 64px clamp(24px,4vw,64px);
   display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 48px 32px;
 }
 .footer-bottom-inner {
-  max-width: 100%; margin: 0 auto; padding: 24px clamp(24px,4vw,64px);
+  max-width: 1400px; margin: 0 auto; padding: 24px clamp(24px,4vw,64px);
   display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between;
   font-size: 13px; letter-spacing: 0.02em; color: var(--color-text-muted); border-top: 1px solid var(--color-divider);
 }

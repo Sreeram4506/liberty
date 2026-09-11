@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
+import { getFallbackImage } from '../lib/productImage';
+import { getCategoryLabel } from '../lib/categoryLabel';
+import { API_BASE } from '../lib/api';
 
 const DETAILS = {
   'holosun-507c': {
@@ -58,14 +61,27 @@ export default function Product() {
   const { inventory, addToCart, fmt } = useAppContext();
   const [qty, setQty] = useState(1);
   const [justAdded, setJustAdded] = useState(false);
+  const [liveProducts, setLiveProducts] = useState(null);
 
-  const product = inventory.find(p => p.id === id) || inventory[0];
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${API_BASE}/api/lightspeed/products`)
+      .then(res => { if (!res.ok) throw new Error('bad response'); return res.json(); })
+      .then(data => { if (!cancelled) setLiveProducts(data.products || []); })
+      .catch(() => { if (!cancelled) setLiveProducts([]); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const product = inventory.find(p => p.id === id) || (liveProducts || []).find(p => p.id === id);
 
   useEffect(() => {
     if (product) document.title = product.name + ' — Liberty Ordnance Supply';
   }, [product]);
 
   if (!product) {
+    if (liveProducts === null) {
+      return <main className="wrap" style={{ padding: 'clamp(40px,6vw,72px) 0' }}><p style={{ color: 'var(--color-text-muted)' }}>Loading…</p></main>;
+    }
     return (
       <main className="wrap" style={{ padding: 'clamp(40px,6vw,72px) 0' }}>
         <h1>Product not found</h1>
@@ -74,14 +90,14 @@ export default function Product() {
     );
   }
 
+  const outOfStock = typeof product.stock === 'number' && product.stock === 0;
+
   const d = DETAILS[product.id] || {
-    category: product.cat,
-    description: `${product.name} — ask us at the counter for full specs and fit questions. In stock in Norwood, call to confirm and hold.`,
-    specs: [['Category', product.cat], ['Condition', product.used ? ('Used — ' + (product.condition || 'good')) : 'New']],
+    category: getCategoryLabel(product.cat),
+    description: `${product.name} — ask us at the counter for full specs and fit questions. ${outOfStock ? "Currently out of stock, but we can special-order it." : 'In stock in Norwood, call to confirm and hold.'}`,
+    specs: [['Category', getCategoryLabel(product.cat)], ['Condition', product.used ? ('Used — ' + (product.condition || 'good')) : 'New']],
     goodToKnow: "Call or stop by the shop with any fit or compatibility questions before you buy — we're happy to talk it through."
   };
-
-  const outOfStock = typeof product.stock === 'number' && product.stock === 0;
 
   const handleAdd = () => {
     if (outOfStock) return;
@@ -91,8 +107,9 @@ export default function Product() {
     setTimeout(() => setJustAdded(false), 1600);
   };
 
-  const related = inventory.filter(p => p.id !== product.id && p.cat === product.cat).slice(0, 3);
-  const relList = related.length ? related : inventory.filter(p => p.id !== product.id).slice(0, 3);
+  const pool = liveProducts && liveProducts.some(p => p.id === product.id) ? liveProducts : inventory;
+  const related = pool.filter(p => p.id !== product.id && p.cat === product.cat).slice(0, 3);
+  const relList = related.length ? related : pool.filter(p => p.id !== product.id).slice(0, 3);
 
   return (
     <main className="wrap">
@@ -103,8 +120,12 @@ export default function Product() {
       </nav>
 
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 'clamp(24px,4vw,64px)', alignItems: 'start', paddingBottom: 'clamp(32px,5vw,56px)' }}>
-        <div className="grayscale" style={{ border: '2px solid var(--color-divider)', aspectRatio: '1/1' }}>
-          <div className="img-slot">{product.placeholder || product.name + ' product photo'}</div>
+        <div className="grayscale" style={{ border: '2px solid var(--color-divider)', aspectRatio: '1/1', overflow: 'hidden' }}>
+          {(() => {
+            const src = product.image || getFallbackImage(product.cat);
+            if (src) return <img src={src} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+            return <div className="img-slot">{product.placeholder || 'No photo yet — call to ask'}</div>;
+          })()}
         </div>
         <div>
           <p style={{ fontSize: '13px', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-accent-700)', margin: '0 0 12px' }}>{d.category}</p>
@@ -159,7 +180,13 @@ export default function Product() {
             <p style={{ color: 'color-mix(in srgb, var(--color-text) 70%, transparent)' }}>Nothing else in the case right now.</p>
           ) : relList.map(p => (
             <Link key={p.id} to={`/product/${encodeURIComponent(p.id)}`} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', border: '2px solid var(--color-divider)', color: 'inherit' }}>
-              <div className="grayscale" style={{ aspectRatio: '4/3', borderBottom: '2px solid var(--color-divider)' }}><div className="img-slot">{p.placeholder || p.name + ' photo'}</div></div>
+              <div className="grayscale" style={{ aspectRatio: '4/3', borderBottom: '2px solid var(--color-divider)', overflow: 'hidden' }}>
+                {(p.image || getFallbackImage(p.cat)) ? (
+                  <img src={p.image || getFallbackImage(p.cat)} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <div className="img-slot" style={{ fontSize: '12px' }}>No photo yet</div>
+                )}
+              </div>
               <div style={{ padding: '12px 14px' }}>
                 <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '15px', display: 'block' }}>{p.name}</span>
                 <span style={{ fontWeight: 700, fontSize: '15px', display: 'block', marginTop: '4px' }}>{fmt(p.priceN)}</span>

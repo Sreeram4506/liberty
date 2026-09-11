@@ -308,19 +308,29 @@ export const AppProvider = ({ children }) => {
       if (short.length) return { error: `Not enough stock at this store - ${short.join('; ')}` };
     }
 
-    const lineItems = [];
+    // Line items come from the cart itself (name/price already carried on
+    // each cart item) — not every product a shopper can buy lives in this
+    // local demo catalog (e.g. items sourced live from Lightspeed), so we
+    // can't require a catalog match just to record the sale.
+    const lineItems = items.map(item => {
+      const product = rawInventory.find(p => p.id === item.id);
+      const price = product ? product.priceN : item.price;
+      return { id: item.id, name: item.name, qty: item.qty, fulfilledQty: item.qty, backordered: 0, price, lineTotal: money(price * item.qty) };
+    });
+
+    // Best-effort: decrement demo-tracked stock for any items that also
+    // happen to exist in the local catalog. Real, Lightspeed-sourced items
+    // have their own live inventory and aren't tracked here.
     const nextInventory = rawInventory.map(product => {
       const item = items.find(i => i.id === product.id);
       if (!item) return product;
       const storeStock = { ...product.storeStock };
       const available = Number(storeStock[store.id]) || 0;
-      const fulfilledQty = Math.min(available, item.qty);
-      storeStock[store.id] = Math.max(0, available - fulfilledQty);
-      lineItems.push({ id: product.id, name: product.name, qty: item.qty, fulfilledQty, backordered: item.qty - fulfilledQty, price: product.priceN, lineTotal: money(product.priceN * item.qty) });
+      storeStock[store.id] = Math.max(0, available - Math.min(available, item.qty));
       return { ...product, storeStock };
     });
 
-    if (lineItems.length === 0) return { error: 'None of those products are in the catalog.' };
+    if (lineItems.length === 0) return { error: 'No items in order.' };
     setRawInventory(nextInventory);
     const subtotal = money(lineItems.reduce((sum, item) => sum + item.lineTotal, 0));
     const shipping = ship ? SHIP_FLAT : 0;

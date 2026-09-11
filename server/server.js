@@ -9,7 +9,7 @@ import {
   getStores, saveStores,
   getInvoices, saveInvoices, nextInvoiceNumber
 } from './db.js';
-import { getRetailer, getProducts } from './lightspeed.js';
+import { getRetailer, getAllActiveProducts, getCategoryList, createSale } from './lightspeed.js';
 
 const app = express();
 app.use(cors());
@@ -619,11 +619,43 @@ app.get('/api/lightspeed/status', async (req, res) => {
 
 app.get('/api/lightspeed/products', async (req, res) => {
   try {
-    const query = req.query.after ? `?after=${encodeURIComponent(req.query.after)}` : '';
-    const products = await getProducts(query);
-    res.json(products);
+    const [products, categories] = await Promise.all([getAllActiveProducts(), getCategoryList()]);
+    res.json({ products, categories });
   } catch (e) {
     res.status(e.status || 500).json({ error: e.message });
+  }
+});
+
+// Records a real, closed sale in the retailer's live Lightspeed account —
+// real sales history, real inventory decrement. Prices are re-looked-up
+// server-side from the live catalog rather than trusted from the client.
+// Only items that match a real Lightspeed product are included; if none do,
+// nothing is written and the caller falls back to a local-only order.
+app.post('/api/lightspeed/orders', async (req, res) => {
+  try {
+    const { items, customerName, customerEmail, fulfillment } = req.body || {};
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ synced: false, error: 'No items provided' });
+    }
+
+    const catalog = await getAllActiveProducts();
+    const catalogById = new Map(catalog.map(p => [p.id, p]));
+    const sellable = items
+      .map(it => {
+        const product = catalogById.get(it.id);
+        if (!product) return null;
+        return { id: product.id, qty: Math.max(1, Number(it.qty) || 1), price: product.priceN };
+      })
+      .filter(Boolean);
+
+    if (sellable.length === 0) {
+      return res.status(422).json({ synced: false, error: 'None of these items are in the live Lightspeed catalog' });
+    }
+
+    const sale = await createSale({ items: sellable, customerName, customerEmail, fulfillment });
+    res.json({ synced: true, saleId: sale.id, skippedCount: items.length - sellable.length });
+  } catch (e) {
+    res.status(e.status || 500).json({ synced: false, error: e.message, detail: e.body || null });
   }
 });
 
