@@ -9,6 +9,7 @@ import {
   getStores, saveStores,
   getInvoices, saveInvoices, nextInvoiceNumber
 } from './db.js';
+import { getRetailer, getProducts } from './lightspeed.js';
 
 const app = express();
 app.use(cors());
@@ -599,6 +600,31 @@ app.get('/api/reports/sales', requireStaff, (req, res) => {
       inStore: invoices.filter(i => i.channel === 'in-store').length
     }
   });
+});
+
+// ---------------------------------------------------------------------------
+// LIGHTSPEED (X-Series) INTEGRATION
+// Proxies the retailer's Lightspeed catalog through our own server so the
+// personal access token never reaches the browser.
+// ---------------------------------------------------------------------------
+
+app.get('/api/lightspeed/status', async (req, res) => {
+  try {
+    const retailer = await getRetailer();
+    res.json({ connected: true, retailer: retailer?.data || retailer });
+  } catch (e) {
+    res.status(e.status || 500).json({ connected: false, error: e.message });
+  }
+});
+
+app.get('/api/lightspeed/products', async (req, res) => {
+  try {
+    const query = req.query.after ? `?after=${encodeURIComponent(req.query.after)}` : '';
+    const products = await getProducts(query);
+    res.json(products);
+  } catch (e) {
+    res.status(e.status || 500).json({ error: e.message });
+  }
 });
 
 const PORT = process.env.PORT || 5001;

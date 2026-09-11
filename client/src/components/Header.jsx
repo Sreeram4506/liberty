@@ -26,7 +26,7 @@ export default function Header() {
           </span>
           <span style={{ display: 'flex', gap: '20px', flexShrink: 0 }}>
             <a href="mailto:sales@los2a.com" style={{ color: 'inherit', whiteSpace: 'nowrap' }}>sales@los2a.com</a>
-            <a href="tel:+15084925955" style={{ color: 'var(--color-accent-700)', fontWeight: 600, whiteSpace: 'nowrap' }}>(508) 492-5955</a>
+            <a href="tel:+15084925955" style={{ color: 'var(--color-on-accent)', fontWeight: 700, whiteSpace: 'nowrap' }}>(508) 492-5955</a>
           </span>
         </div>
       </div>
