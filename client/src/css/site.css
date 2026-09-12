@@ -149,7 +149,27 @@ html { scroll-behavior: smooth; }
 }
 
 /* — footer — */
-.site-footer { border-top: 3px solid var(--color-accent); background: var(--color-surface); width: 100%; }
+.site-footer { 
+  border-top: 3px solid var(--color-accent); 
+  background-image: url('/footer.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  width: 100%; 
+}
+.site-footer a {
+  color: #fff;
+}
+.site-footer a:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    background-size: 100% 100%;
+  }
+}
 .footer-grid {
   max-width: 1400px; margin: 0 auto; padding: 64px clamp(24px,4vw,64px);
   display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 48px 32px;

@@ -7,7 +7,6 @@ export default function Home() {
 
   const videoContainerRef = useRef(null);
   const videoRef = useRef(null);
-  const audioRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,76 +75,8 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    let scrollTimeout;
-    let isPlaying = false;
-    let playPromise = null;
-
-    // Browsers block audio playback until the user interacts with the document.
-    // We listen for a click, touch, or keydown to silently play and pause the audio, unlocking it for future scroll events.
-    const unlockAudio = () => {
-      if (audioRef.current && audioRef.current.paused) {
-        const p = audioRef.current.play();
-        if (p !== undefined) {
-          p.then(() => {
-            audioRef.current.pause();
-          }).catch(() => {});
-        }
-      }
-      window.removeEventListener('click', unlockAudio);
-      window.removeEventListener('touchstart', unlockAudio);
-      window.removeEventListener('keydown', unlockAudio);
-    };
-
-    window.addEventListener('click', unlockAudio, { passive: true });
-    window.addEventListener('touchstart', unlockAudio, { passive: true });
-    window.addEventListener('keydown', unlockAudio, { passive: true });
-
-    const handleScrollAudio = () => {
-      if (!audioRef.current) return;
-
-      if (!isPlaying) {
-        isPlaying = true;
-        playPromise = audioRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            isPlaying = false;
-          });
-        }
-      }
-
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        if (isPlaying && audioRef.current) {
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              audioRef.current.pause();
-              isPlaying = false;
-            }).catch(() => {
-              isPlaying = false;
-            });
-          } else {
-            audioRef.current.pause();
-            isPlaying = false;
-          }
-        }
-      }, 250); // Give it slightly more time to prevent stuttering
-    };
-
-    window.addEventListener('scroll', handleScrollAudio, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScrollAudio);
-      window.removeEventListener('click', unlockAudio);
-      window.removeEventListener('touchstart', unlockAudio);
-      window.removeEventListener('keydown', unlockAudio);
-      clearTimeout(scrollTimeout);
-    };
-  }, []);
-
   return (
     <>
-      <audio ref={audioRef} src="/starly_Kavkaz.mp3" loop preload="auto" />
       <section style={{ position: 'relative', width: '100%', minHeight: 'clamp(560px,88vh,880px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflow: 'hidden' }}>
         <video src="/liberty_interface.mp4" autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: 0, zIndex: 0 }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.62) 42%, rgba(0,0,0,0.32) 100%)', zIndex: 1 }} />

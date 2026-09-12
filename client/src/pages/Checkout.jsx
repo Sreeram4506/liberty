@@ -193,7 +193,7 @@ export default function Checkout() {
                 <div className="field"><label htmlFor="co-cvv">CVV *</label><input className="input" id="co-cvv" required style={{ minHeight: '48px' }} placeholder="•••" /></div>
               </div>
             </div>
-            <p style={{ fontSize: '12px', color: 'color-mix(in srgb, var(--color-text) 60%, transparent)', margin: '10px 0 0' }}>Demo checkout — no real payment is processed.</p>
+            <p style={{ fontSize: '12px', color: 'color-mix(in srgb, var(--color-text) 60%, transparent)', margin: '10px 0 0' }}>Your card is not charged online — we'll collect payment when you pick up or ship your order.</p>
           </div>
 
           <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: 'var(--color-text-muted)', cursor: 'pointer' }}>

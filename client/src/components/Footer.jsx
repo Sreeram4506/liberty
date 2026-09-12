@@ -14,7 +14,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="site-footer" style={{ backgroundImage: 'url("/footer.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', color: '#fff' }}>
+    <footer className="site-footer">
       <div className="wrap" style={{ padding: 'clamp(40px,6vw,64px) 0', borderBottom: '1px solid var(--color-divider)', display: 'flex', flexWrap: 'wrap', gap: '24px 48px', alignItems: 'center', justifyContent: 'center' }}>
         <div>
           <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: 'clamp(26px,4vw,40px)', lineHeight: 1.02, margin: 0 }}>Keep up<br />with the shop</h2>
