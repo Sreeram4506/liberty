@@ -40,6 +40,7 @@ export default function Shop() {
     : (loadError ? ['Red Dots', 'Weapon Lights', 'AR Accessories', 'Upper Receivers', 'Used Guns'] : []);
 
   const [filter, setFilter] = useState(searchParams.get('cat') || 'All');
+  const [search, setSearch] = useState(searchParams.get('q') || '');
   const [added, setAdded] = useState(null);
 
   useEffect(() => {
@@ -48,10 +49,15 @@ export default function Shop() {
     } else {
       searchParams.set('cat', filter);
     }
+    if (search.trim()) {
+      searchParams.set('q', search.trim());
+    } else {
+      searchParams.delete('q');
+    }
     setSearchParams(searchParams, { replace: true });
-  }, [filter, searchParams, setSearchParams]);
+  }, [filter, search, searchParams, setSearchParams]);
 
-  useEffect(() => { setVisibleCount(PAGE_SIZE); }, [filter]);
+  useEffect(() => { setVisibleCount(PAGE_SIZE); }, [filter, search]);
 
   const handleAdd = (e, p) => {
     e.preventDefault();
@@ -62,9 +68,15 @@ export default function Shop() {
     setTimeout(() => setAdded(null), 1400);
   };
 
+  const searchTerm = search.trim().toLowerCase();
   const filteredInventory = useMemo(
-    () => inventory.filter(p => filter === 'All' || p.cat === filter),
-    [inventory, filter]
+    () => inventory.filter(p => {
+      if (filter !== 'All' && p.cat !== filter) return false;
+      if (!searchTerm) return true;
+      const haystack = [p.name, p.brand, p.sku, getCategoryLabel(p.cat)].filter(Boolean).join(' ').toLowerCase();
+      return haystack.includes(searchTerm);
+    }),
+    [inventory, filter, searchTerm]
   );
   const visibleInventory = filteredInventory.slice(0, visibleCount);
 
@@ -95,7 +107,40 @@ export default function Shop() {
           </div>
         ) : (
         <>
-        <div id="cat-filters" style={{ display: 'flex', gap: '8px', overflowX: 'auto', padding: '24px 0 20px', WebkitOverflowScrolling: 'touch' }}>
+        <div id="shop-search" style={{ position: 'relative', maxWidth: '420px', marginTop: '24px' }}>
+          <input
+            type="search"
+            className="input"
+            placeholder="Search products…"
+            aria-label="Search products"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            style={{ paddingLeft: '40px' }}
+          />
+          <svg
+            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+            strokeLinecap="round" strokeLinejoin="round"
+            style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)', pointerEvents: 'none' }}
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          {search && (
+            <button
+              type="button"
+              onClick={() => setSearch('')}
+              aria-label="Clear search"
+              style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--color-text-muted)', padding: '6px', display: 'flex' }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        <div id="cat-filters" style={{ display: 'flex', gap: '8px', overflowX: 'auto', padding: '20px 0', WebkitOverflowScrolling: 'touch' }}>
           {['All', ...CATS].map(c => (
             <button
               key={c}
@@ -119,7 +164,9 @@ export default function Shop() {
 
         <div id="product-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(250px,1fr))', gap: '24px', paddingBottom: '8px' }}>
           {filteredInventory.length === 0 ? (
-            <p style={{ gridColumn: '1/-1', color: 'var(--color-text-muted)' }}>No products in this category right now.</p>
+            <p style={{ gridColumn: '1/-1', color: 'var(--color-text-muted)' }}>
+              {searchTerm ? `No products match "${search.trim()}".` : 'No products in this category right now.'}
+            </p>
           ) : (
             visibleInventory.map(p => {
               const lowStock = typeof p.stock === 'number' && p.stock > 0 && p.stock <= 3;
