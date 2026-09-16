@@ -19,6 +19,7 @@ import Deals from './pages/Deals';
 import Guide from './pages/Guide';
 import Services from './pages/Services';
 import SellGuns from './pages/SellGuns';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="/guide" element={<Guide />} />
             <Route path="/services" element={<Services />} />
             <Route path="/sell-your-guns" element={<SellGuns />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

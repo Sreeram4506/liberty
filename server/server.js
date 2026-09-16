@@ -18,6 +18,13 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
+// Root — mostly hit by Render's own health check, not real traffic (the
+// storefront calls /api/* only). Answer with something meaningful instead of
+// Express's default 404.
+app.get('/', (req, res) => {
+  res.json({ service: 'Liberty Ordnance Supply API', status: 'ok' });
+});
+
 const JWT_SECRET = 'liberty-secret-key-1234';
 const TAX_RATE = 0.0625;
 const SHIP_FLAT = 9.95;
@@ -723,6 +730,13 @@ app.post('/api/lightspeed/generate-images', async (req, res) => {
   } catch (e) {
     res.status(e.status || 500).json({ error: e.message });
   }
+});
+
+// Catch-all 404 — must stay last. This is a JSON API with no pages of its
+// own, so an unmatched route gets a clean error body instead of Express's
+// default plain-text "Cannot GET /path" page.
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not found', path: req.originalUrl });
 });
 
 const PORT = process.env.PORT || 5001;
