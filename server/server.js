@@ -9,7 +9,8 @@ import {
   getStores, saveStores,
   getInvoices, saveInvoices, nextInvoiceNumber
 } from './db.js';
-import { getRetailer, getAllActiveProducts, getCategoryList, createSale } from './lightspeed.js';
+import { getRetailer, getAllActiveProducts, getCategoryList, createSale, getProductsMissingImages, uploadProductImage } from './lightspeed.js';
+import { generateProductImage } from './imageGen.js';
 
 const app = express();
 app.use(cors());
@@ -656,6 +657,70 @@ app.post('/api/lightspeed/orders', async (req, res) => {
     res.json({ synced: true, saleId: sale.id, skippedCount: items.length - sellable.length });
   } catch (e) {
     res.status(e.status || 500).json({ synced: false, error: e.message, detail: e.body || null });
+  }
+});
+
+// Products with no photo yet, so the caller can preview scope before
+// spending on generation.
+app.get('/api/lightspeed/products-missing-images', async (req, res) => {
+  try {
+    const missing = await getProductsMissingImages();
+    res.json({
+      count: missing.length,
+      sample: missing.slice(0, 20).map(p => ({ id: p.id, name: p.name, cat: p.cat }))
+    });
+  } catch (e) {
+    res.status(e.status || 500).json({ error: e.message });
+  }
+});
+
+// Generates a photo (OpenAI) for up to `limit` photo-less products and
+// uploads each one onto the real Lightspeed product — same photo then shows
+// in-store on the POS and on the website once the catalog cache refreshes.
+// Runs sequentially and keeps going past individual failures so one bad
+// generation (e.g. blocked prompt) doesn't stop the rest of the batch.
+app.post('/api/lightspeed/generate-images', async (req, res) => {
+  try {
+    const limit = Math.min(Math.max(Number(req.body?.limit) || 12, 1), 100);
+    const missing = await getProductsMissingImages();
+    const batch = missing.slice(0, limit);
+
+    // A variant (e.g. one trigger model in a "Geissele Trigger" family) can
+    // only take a photo on its parent product — Lightspeed rejects uploads
+    // aimed at the variant itself. So each family only needs one generated
+    // photo; every sibling variant then inherits it automatically.
+    const handledFamilies = new Set();
+    const results = [];
+    for (const product of batch) {
+      const targetId = product.variantParentId || product.id;
+      if (handledFamilies.has(targetId)) {
+        results.push({ id: product.id, name: product.name, status: 'ok', note: 'shares family photo' });
+        continue;
+      }
+      try {
+        const buffer = await generateProductImage(product);
+        await uploadProductImage(targetId, buffer, `${targetId}.png`);
+        handledFamilies.add(targetId);
+        results.push({ id: product.id, name: product.name, status: 'ok' });
+      } catch (e) {
+        results.push({ id: product.id, name: product.name, status: 'error', error: e.message });
+      }
+    }
+
+    // Best-effort: refresh the cache so new photos show up immediately. A
+    // transient failure here shouldn't make an otherwise-successful batch
+    // look like a total failure — the 5-minute cache TTL will pick it up.
+    await getAllActiveProducts({ force: true }).catch(() => {});
+
+    res.json({
+      totalMissing: missing.length,
+      attempted: batch.length,
+      succeeded: results.filter(r => r.status === 'ok').length,
+      failed: results.filter(r => r.status === 'error').length,
+      results
+    });
+  } catch (e) {
+    res.status(e.status || 500).json({ error: e.message });
   }
 });
 

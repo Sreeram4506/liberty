@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MobileStickyBar from './components/MobileStickyBar';
 
 import Home from './pages/Home';
 import Shop from './pages/Shop';
@@ -43,6 +44,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <MobileStickyBar />
       </BrowserRouter>
     </AppProvider>
   );

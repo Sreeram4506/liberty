@@ -148,16 +148,12 @@ export default function Checkout() {
             </div>
 
             {!ship && stores.length > 0 && (
-              <div style={{ marginTop: '14px' }}>
-                <div className="field" style={{ marginBottom: 0 }}>
-                  <label htmlFor="co-store">Pickup location</label>
-                  <select className="input" id="co-store" value={storeId} onChange={(e) => setStoreId(e.target.value)} style={{ minHeight: '48px' }}>
-                    {stores.map(s => {
-                      const short = storeShortfall(s);
-                      return <option key={s.id} value={s.id}>{s.name}{short > 0 ? ` — ${short} item${short === 1 ? '' : 's'} short` : ' — fully in stock'}</option>;
-                    })}
-                  </select>
-                </div>
+              <div style={{ marginTop: '14px', padding: '14px 16px', border: '2px solid var(--color-divider)', fontSize: '14px' }}>
+                <span style={{ color: 'var(--color-text-muted)' }}>Pickup location: </span>
+                <strong>{stores[0].name}</strong>
+                {storeShortfall(stores[0]) > 0 && (
+                  <span className="tag tag-outline" style={{ marginLeft: '8px' }}>{storeShortfall(stores[0])} item{storeShortfall(stores[0]) === 1 ? '' : 's'} short</span>
+                )}
               </div>
             )}
 

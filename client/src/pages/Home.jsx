@@ -94,7 +94,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={{ position: 'relative', zIndex: 2, borderTop: '1px solid rgba(255,255,255,0.18)', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>
+        <div className="desktop-hero-actions" style={{ position: 'relative', zIndex: 2, borderTop: '1px solid rgba(255,255,255,0.18)', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>
           <div className="wrap" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))' }}>
             <a href="tel:+15084925955" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', padding: '18px clamp(0px,2vw,16px)', color: 'var(--color-on-accent)', borderRight: '1px solid rgba(255,255,255,0.18)' }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" style={{ color: 'var(--color-accent)', flexShrink: 0 }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>

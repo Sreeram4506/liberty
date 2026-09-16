@@ -76,16 +76,23 @@ const fetchStockByProduct = async () => {
   return stockByProduct;
 };
 
-const normalizeProduct = (p, stockByProduct) => ({
+const pickImage = (images) => images?.[0]?.sizes?.original || images?.[0]?.url || null;
+
+// A variant (e.g. one trigger model in a "Geissele Trigger" family) can't
+// hold its own photo in Lightspeed — only the variant's parent product can.
+// So a variant with no photo of its own falls back to its family's shared
+// photo on the parent, same as Lightspeed's own back office displays it.
+const normalizeProduct = (p, stockByProduct, imagesById) => ({
   id: p.id,
   sku: p.sku || '',
   name: p.name,
   priceN: +(Number(p.price_including_tax ?? p.price_excluding_tax ?? 0)).toFixed(2),
   cat: p.product_category?.name || (p.categories && p.categories[0]?.name) || 'Uncategorized',
   brand: p.brand?.name || null,
-  image: p.images?.[0]?.sizes?.original || p.images?.[0]?.url || null,
+  image: pickImage(p.images) || (p.variant_parent_id ? pickImage(imagesById.get(p.variant_parent_id)) : null),
   description: p.description || null,
-  stock: stockByProduct.get(p.id) || 0
+  stock: stockByProduct.get(p.id) || 0,
+  variantParentId: p.variant_parent_id || null
 });
 
 // Fetch every page of active, sellable, retailer-owned products (plus their
@@ -97,13 +104,15 @@ const CACHE_TTL_MS = 5 * 60 * 1000;
 
 const fetchAllProducts = async () => {
   const rawProducts = [];
+  const imagesById = new Map();
   const [, stockByProduct] = await Promise.all([
     fetchAllPages(getProducts, (p) => {
+      imagesById.set(p.id, p.images);
       if (p.source === 'USER' && p.active && p.has_inventory) rawProducts.push(p);
     }),
     fetchStockByProduct()
   ]);
-  return rawProducts.map(p => normalizeProduct(p, stockByProduct));
+  return rawProducts.map(p => normalizeProduct(p, stockByProduct, imagesById));
 };
 
 export const getAllActiveProducts = async ({ force = false } = {}) => {
@@ -118,6 +127,40 @@ export const getAllActiveProducts = async ({ force = false } = {}) => {
       .finally(() => { inFlight = null; });
   }
   return inFlight;
+};
+
+export const getProductsMissingImages = async () => {
+  const products = await getAllActiveProducts();
+  return products.filter(p => !p.image);
+};
+
+// Uploads a generated/sourced photo onto a real Lightspeed product. This is
+// the same endpoint the Lightspeed back office uses, so the photo shows up
+// on the in-store POS and, once our product cache refreshes, on the website.
+export const uploadProductImage = async (productId, imageBuffer, filename = 'product.png') => {
+  const token = process.env.LIGHTSPEED_PERSONAL_TOKEN;
+  if (!token) throw new Error('LIGHTSPEED_PERSONAL_TOKEN is not set in server/.env');
+
+  const form = new FormData();
+  form.append('image', new Blob([imageBuffer], { type: 'image/png' }), filename);
+
+  const res = await fetch(apiUrl(API_VERSION, `/products/${productId}/actions/image_upload`), {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: form
+  });
+
+  const text = await res.text();
+  let body;
+  try { body = text ? JSON.parse(text) : null; } catch { body = text; }
+  if (!res.ok) {
+    const message = (body && body.error) || res.statusText || 'Lightspeed image upload failed';
+    const err = new Error(`Lightspeed API ${res.status}: ${message}`);
+    err.status = res.status;
+    err.body = body;
+    throw err;
+  }
+  return body;
 };
 
 export const getCategoryList = async () => {
