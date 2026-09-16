@@ -11,6 +11,7 @@ import {
 } from './db.js';
 import { getRetailer, getAllActiveProducts, getCategoryList, createSale, getProductsMissingImages, uploadProductImage } from './lightspeed.js';
 import { generateProductImage } from './imageGen.js';
+import { startAutoImageGenLoop } from './autoImageGen.js';
 
 const app = express();
 app.use(cors());
@@ -727,4 +728,5 @@ app.post('/api/lightspeed/generate-images', async (req, res) => {
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  startAutoImageGenLoop();
 });

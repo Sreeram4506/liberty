@@ -100,6 +100,13 @@ export const saveOrders = (data) => writeJson('orders.json', data);
 export const getInvoices = () => readJson('invoices.json', []);
 export const saveInvoices = (data) => writeJson('invoices.json', data);
 
+// --- Auto image-gen failures ---
+// Products whose AI photo generation was permanently rejected (e.g. OpenAI's
+// content policy) — remembered so the background job doesn't keep re-billing
+// itself against the same doomed item forever.
+export const getImageGenFailures = () => readJson('image-gen-failures.json', []);
+export const saveImageGenFailures = (data) => writeJson('image-gen-failures.json', data);
+
 export const nextInvoiceNumber = () => {
   const invoices = getInvoices();
   const max = invoices.reduce((m, inv) => {
