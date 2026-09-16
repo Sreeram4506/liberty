@@ -19,6 +19,8 @@ import Deals from './pages/Deals';
 import Guide from './pages/Guide';
 import Services from './pages/Services';
 import SellGuns from './pages/SellGuns';
+import Terms from './pages/Terms';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -42,6 +44,8 @@ export default function App() {
             <Route path="/guide" element={<Guide />} />
             <Route path="/services" element={<Services />} />
             <Route path="/sell-your-guns" element={<SellGuns />} />
+            <Route path="/terms-and-conditions" element={<Terms />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

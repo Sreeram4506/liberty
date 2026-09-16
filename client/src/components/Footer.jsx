@@ -89,8 +89,8 @@ export default function Footer() {
         <div className="footer-bottom-inner">
           <span>&copy; {new Date().getFullYear()} Liberty Ordnance Supply</span>
           <span style={{ display: 'flex', gap: '20px' }}>
-            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Terms &amp; Conditions</a>
-            <a href="#" style={{ textDecoration: 'none', color: 'inherit' }}>Privacy Policy</a>
+            <Link to="/terms-and-conditions" style={{ textDecoration: 'none', color: 'inherit' }}>Terms &amp; Conditions</Link>
+            <Link to="/privacy-policy" style={{ textDecoration: 'none', color: 'inherit' }}>Privacy Policy</Link>
           </span>
         </div>
       </div>
