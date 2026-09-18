@@ -34,15 +34,32 @@ export const autoFillMissingImages = async () => {
     for (const product of batch) {
       const targetId = product.variantParentId || product.id;
       if (handledFamilies.has(targetId)) { succeeded++; continue; }
+
+      let buffer;
       try {
-        const buffer = await generateProductImage(product);
-        await uploadProductImage(targetId, buffer, `${targetId}.png`);
-        handledFamilies.add(targetId);
-        succeeded++;
+        buffer = await generateProductImage(product);
       } catch (e) {
         failed++;
         if (isPermanentFailure(e.message)) {
           nextFailures.push({ id: targetId, name: product.name, failedAt: Date.now(), error: e.message });
+        }
+        continue;
+      }
+
+      try {
+        await uploadProductImage(targetId, buffer, `${targetId}.png`);
+        handledFamilies.add(targetId);
+        succeeded++;
+      } catch (e) {
+        // The photo was already generated (and paid for) — if Lightspeed is
+        // rejecting the upload itself (e.g. the token lacks products:write),
+        // that's a systemic config problem, not a per-product one. Stop the
+        // run rather than burning more generations against uploads that will
+        // fail the same way.
+        failed++;
+        if (e.status === 401 || e.status === 403) {
+          console.error('[auto-image-gen] upload rejected by Lightspeed, stopping run:', e.message);
+          break;
         }
       }
     }
